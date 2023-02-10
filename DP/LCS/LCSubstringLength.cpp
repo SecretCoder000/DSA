@@ -27,6 +27,7 @@ int longestCommonSubstr(string x, string y, int n, int m){
             max = max<dp[i][j]?dp[i][j]:max;
         }
     }
+
     return  max;
 }
 int main() {
