@@ -1,4 +1,20 @@
 
+string printLCS(string x,int n,string y,int m,vector<vector<int>> & dp,int i,int j){
+    string str;
+    while (i > 0 && j > 0){
+        if(x[i-1] == y [j-1]){
+            str.insert(str.begin(),x[i-1]);
+            i--;j--;
+        }else {
+            if(dp[i-1][j] > dp[i][j-1])
+                i--;
+            else
+                j--;
+        }
+    }
+    return str;
+}
+
 vector<string> solve(string x,int n,string y,int m,vector<vector<int>>  dp){
     int i = n,j = m;
     vector<vector<string>> dp2 (n+1,vector<string>(m+1,""));

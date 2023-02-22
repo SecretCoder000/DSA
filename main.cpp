@@ -305,21 +305,7 @@ int longestSubstring(string s, int k) {
     }
     return ans;
 }
-string printLCS(string x,int n,string y,int m,vector<vector<int>> & dp,int i,int j){
-    string str;
-    while (i > 0 && j > 0){
-        if(x[i-1] == y [j-1]){
-            str.insert(str.begin(),x[i-1]);
-            i--;j--;
-        }else {
-            if(dp[i-1][j] > dp[i][j-1])
-                i--;
-            else
-                j--;
-        }
-    }
-    return str;
-}
+
 int longestPalindrome(string x) {
     int n = x.size();
     vector<vector<int>> dp(n,vector<int>(n,-1));
@@ -620,8 +606,9 @@ int countSubarray(int n, vector<int>& arr, int target) {
     }
     return ans;
 }
+
+
 int main() {
-    vector<int> arr = {0,0,1,1,0,1,1};
-    cout<<numberOfSubarrays(arr,arr.size(),2);
+    vector<vector<int>> adj = {{2,1,0},{1,1,0},{0,1,1}};
     return 0;
 }
