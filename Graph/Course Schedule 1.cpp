@@ -1,16 +1,7 @@
-#include <bits/stdc++.h>
-using namespace std;
-string findOrder(string dict[], int N, int V) {
+bool canFinish(int V, vector<vector<int>>& pre) {
     vector<vector<int>> adj(V);
-    for(int i =1;i<N;i++){
-        for(int j =0;j<dict[i].size() && j<dict[i-1].size() ;j++){
-            if(dict[i-1][j] != dict[i][j]){
-                adj[dict[i-1][j]-'a'].push_back(dict[i][j]-'a');
-                break;
-            }
-
-        }
-    }
+    for(int i =0;i<pre.size();i++)
+        adj[pre[i][0]].push_back(pre[i][1]);
     vector<int> indeg(V,0);
     for(int i =0;i<V;i++){
         for(int j=0;j<adj[i].size();j++)
@@ -21,16 +12,16 @@ string findOrder(string dict[], int N, int V) {
         if(indeg[i] == 0)
             que.push(i);
     }
-    string arr;
+    int count = 0;
     while (!que.empty()){
         int node = que.front();
         que.pop();
-        arr.push_back(tolower(node+65));
+        count++;
         for(auto it : adj[node]){
             indeg[it]--;
             if(indeg[it] == 0)
                 que.push(it);
         }
     }
-    return arr;
+    return count==V;
 }
