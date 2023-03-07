@@ -1,36 +1,85 @@
 #include <bits/stdc++.h>
 using namespace std;
-string findOrder(string dict[], int N, int V) {
-    vector<vector<int>> adj(V);
-    for(int i =1;i<N;i++){
-        for(int j =0;j<dict[i].size() && j<dict[i-1].size() ;j++){
-            if(dict[i-1][j] != dict[i][j]){
-                adj[dict[i-1][j]-'a'].push_back(dict[i][j]-'a');
-                break;
-            }
 
+int saveFlowers(int n, vector<int> &arr, string s) {
+    int i,j;
+    i=j=0;
+    int ans = 0;
+    int sum = 0;
+    int mn = INT_MAX;
+    while (j < n){
+        if(s[j] == '1') {
+            sum += arr[j];
+            mn = min(mn, arr[j]);
         }
+        if(s[j] == '0' || j == n-1 ){
+            if(sum > 0){
+                if(i != 0 && arr[i-1] > mn){
+                    sum = sum - mn+arr[i-1];
+                }
+                ans += sum;
+            }
+            sum = 0;
+            mn;
+            i = j+1;
+        }
+        j++;
     }
-    vector<int> indeg(V,0);
-    for(int i =0;i<V;i++){
-        for(int j=0;j<adj[i].size();j++)
-            indeg[adj[i][j]]++;
+    return  ans;
+}
+bool isValid(int x,int y,int n,int m){
+    if(x >= 0 && x < n && y >= 0 && y < m)
+        return true;
+    return false;
+}
+bool avoidFire(int n, int m, int x, int y, vector<vector<int>> &arr) {
+    if(arr[x][y] == 1 || arr[n-1][m-1] == 1)
+        return false;
+    vector<vector<int>> vis(n,vector<int>(m,-1));
+    priority_queue<pair<pair<int,int>,int>> fire;
+    priority_queue<pair<int,int>> que;
+    for(int i = 0;i < n;i++) {
+        for (int j = 0; j < m; j++)
+            if (arr[i][j] == 1)
+                fire.push({{i, j},0});
     }
-    queue<int> que;
-    for(int i =0;i<V;i++){
-        if(indeg[i] == 0)
-            que.push(i);
-    }
-    string arr;
+    int level = 0;
+    que.push({x,y});
     while (!que.empty()){
-        int node = que.front();
+        vector<int> dr = {-1,0,1,0};
+        vector<int> dc = {0,1,0,-1};
+        while (!fire.empty() && fire.top().second  == level){
+            int dist = fire.top().second;
+            pair<int,int> node = fire.top().first;
+            fire.pop();
+            for(int i =0;i<4;i++){
+                int row = node.first+dr[i];
+                int col = node.second+dc[i];
+                if(isValid(row,col,n,m) && arr[row][col] == 0 && vis[row][col] == -1){
+                    arr[row][col] = 1;
+                    vis[row][col] = 1;
+                    fire.push({{row,col},dist+1});
+                }
+            }
+        }
+        level++;
+        pair<int,int> node = que.top();
         que.pop();
-        arr.push_back(tolower(node+65));
-        for(auto it : adj[node]){
-            indeg[it]--;
-            if(indeg[it] == 0)
-                que.push(it);
+        for(int i =0;i<4;i++){
+            int row = node.first+dr[i];
+            int col = node.second+dc[i];
+            if(row == n-1 && col == m-1 && arr[row][col] == 0)
+                return true;
+            if(isValid(row,col,n,m) && arr[row][col] == 0 && vis[row][col] == -1){
+                vis[row][col] = 1;
+                que.push({row,col});
+            }
         }
     }
-    return arr;
+    return false;
+}
+int main(){
+    vector<int> arr = {7,2,10,8,10,1};
+    cout<<saveFlowers(arr.size(),arr,"100110");
+    return 0;
 }
