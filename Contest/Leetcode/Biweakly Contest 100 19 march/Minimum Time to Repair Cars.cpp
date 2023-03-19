@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define ll long long
 
 bool isTimeEnough( vector<int> & ranks,int total_cars,ll givenTime){
     ll cars = 0;
@@ -24,7 +21,3 @@ ll repairCars(vector<int>& ranks, int cars) {
     return l;
 }
 
-int main(){
-
-    return 0;
-}
