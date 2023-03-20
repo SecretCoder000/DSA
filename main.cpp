@@ -1,30 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
 
-bool isTimeEnough( vector<int> & ranks,int total_cars,ll givenTime){
-    ll cars = 0;
-    for(auto it : ranks){
-        ll count = givenTime/it;
-        ll temp = sqrt(count);
-        cars += temp;
+vector<int> pascleTriangleRow(int row){
+    //Rule for pascle is n-1Cr-1;
+    vector<int> ans(row,0);
+    int n = row-1;
+    int r = 1;
+    int prev = 1;
+    for(int i =0;i<(row+1)/2;i++){
+        ans[i]=ans[row-1-i]=prev;
+        prev = prev*n/r;
+        n--;
+        r++;
     }
-    return cars >= total_cars;
-}
-ll repairCars(vector<int>& ranks, int cars) {
-    ll l,r;
-    l = 1,r = 1e14;
-    while (l < r ){
-        ll mid = (l+r)/2;
-        if(isTimeEnough(ranks,cars,mid))
-            r = mid;
-        else
-            l = mid+1;
-    }
-    return l;
+    return ans;
 }
 
 int main(){
+    vector<int> row = pascleTriangleRow(6);
+    for(auto it : row)
+        cout<<it<<"\t";
+    cout<<endl;
 
     return 0;
 }

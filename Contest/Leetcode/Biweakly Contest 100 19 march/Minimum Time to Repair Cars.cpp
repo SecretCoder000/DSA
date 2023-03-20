@@ -1,4 +1,3 @@
-
 bool isTimeEnough( vector<int> & ranks,int total_cars,ll givenTime){
     ll cars = 0;
     for(auto it : ranks){
