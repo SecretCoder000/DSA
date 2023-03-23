@@ -22,6 +22,9 @@ public:
         else
             return parent[u] = findParent(parent[u]);
     }
+    int findSize(int u){
+        return size[findParent(u)];
+    }
     void unionByRank(int u,int v){
         int ulp_u = findParent(u);
         int ulp_v = findParent(v);
