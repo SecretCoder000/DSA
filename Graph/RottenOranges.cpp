@@ -1,3 +1,4 @@
+https://practice.geeksforgeeks.org/problems/rotten-oranges2536/1
 int bfs(queue<pair<pair<int,int>,int>> que,vector<vector<int>> & grid,vector<vector<int>> & vis,int & count){
     int n = grid.size()-1;
     int m = grid[0].size()-1;

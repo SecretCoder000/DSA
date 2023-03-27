@@ -1,3 +1,4 @@
+https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
 //Usin BSF
 bool bfs(int src ,vector<int> adj[],vector<int> & visited){
     queue<pair<int,int>> que;

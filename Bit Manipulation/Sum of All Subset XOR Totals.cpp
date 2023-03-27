@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 bool checkBitSet(int n ,int i) {
     return n&(1<<i);
 }
@@ -16,9 +14,4 @@ int subsetXORSum(vector<int> arr) {
         ans += myxor;
     }
     return ans;
-}
-
-int main(){
-    cout<<subsetXORSum({1,5,6});
-    return 0;
 }
