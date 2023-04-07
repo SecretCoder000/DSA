@@ -20,3 +20,23 @@ int longestConsecutive(vector<int>& nums) {
         max = temp.size();
     return max;
 }
+
+int longestConsecutive(vector<int>& nums) {
+    set<int> temp;
+    int n = nums.size();
+    for(int i =0;i<n;i++)
+        temp.insert(nums[i]);
+    int max = 1;
+    for(int i =0;i<n;i++){
+        if(temp.find(nums[i]-1) == temp.end()){
+            int count = 1;
+            int node = nums[i];
+            while (temp.find(node+1) != temp.end()){
+                count++;
+                node++;
+            }
+            max = max<count?count:max;
+        }
+    }
+    return max;
+}
