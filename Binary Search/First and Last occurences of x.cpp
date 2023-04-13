@@ -1,6 +1,3 @@
-#include "bits/stdc++.h"
-using namespace std;
-
 int findFirst(int arr[],int n,int k){
     int lo = 0;
     int hi = n-1;
@@ -36,9 +33,4 @@ vector<int> find(int arr[], int n , int x ){
     int f = findFirst(arr,n,x);
     int s = findLast(arr,n,x);
     return {f,s};
-}
-
-int main(){
-    int n = 6;
-    vector<int> arr = {8 ,6 ,3 ,6 ,1 ,2 ,2 ,6 ,1};
 }
