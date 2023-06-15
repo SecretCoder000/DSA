@@ -1,45 +1,31 @@
-#include <bits/stdc++.h>
+#include "bits/stdc++.h"
 using namespace std;
+#define ll long long
+vector<ll> generateRow(int n){
+    ll pro =1;
+    int row = n-1;
+    int col = 1;
+    vector<ll> res;
+
+    res.push_back(1);
+    while (col < n){
+        pro = (pro * row/col);
+        ++col;
+        --row;
+        res.push_back(pro);
+    }
+    return res;
+}
+vector<vector<ll>> printPascal(int n) {
+    vector<vector<ll>> ans;
+    for(int i =1;i<=n;++i)
+        ans.push_back(generateRow(i));
+    return ans;
+}
+
 
 int main(){
-    int t;
-    cin>>t;
-    while (t--){
-        int n;
-        cin>>n;
-        int a[n];
-        int big=1;
-        cin>>a[0];
-        for(int i =1;i<n;++i){
-            cin>>a[i];
-            if(a[big] < a[i])
-                big = i;
-        }
-        if(big == n-1){
-            cout<<a[big]<<" ";
-            for(int i =0;i<n-1;++i)
-                cout<<a[i]<<" ";
-            cout<<endl;
-            continue;
-        }
-        int s = 0;
-        for(int i =1;i<big;++i){
-            if(a[s] < a[i])
-                s = i;
-        }
-        for(int i = big;i<n;++i)
-            cout<<a[i]<<" ";
-        if(s == 0){
-            cout<<a[big-1]<<" ";
-            for(int i =0;i<big-1;++i)
-                cout<<a[i]<<" ";
-        }else {
-            for(int i = big-1;i>=s;--i)
-                cout<<a[i]<<" ";
-            for(int i = 0;i<s;++i)
-                cout<<a[i]<<" ";
-        }
-        cout<<endl;
-    }
+    vector<vector<ll>> ans = printPascal(4);
+    cout<<ans.size();
     return 0;
 }

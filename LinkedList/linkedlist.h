@@ -7,6 +7,14 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+struct List {
+    int val,key;
+    List *right;
+    List *left;
+    List() : val(0), right(nullptr) , left(nullptr) {}
+    List(int x) : val(x), right(nullptr) , left(nullptr) {}
+    List(int x, List *next) : val(x), right(nullptr) , left(nullptr) {}
+};
 struct TreeNode {
          int val;
          TreeNode *left;
@@ -35,4 +43,24 @@ void printListNode(ListNode* head){
         cout << head->val << "\t";
         head = head->next;
     }
+}
+ListNode * reverse(ListNode * head){
+    ListNode * start = head;
+    ListNode * end = head;
+    head = head->next;
+    end->next = NULL;
+    while(head){
+        end->next = head;
+        head = head->next;
+        end = end->next;
+    }
+    return start;
+}
+int NodeCount(ListNode * start){
+    int count = 0;
+    while (start){
+        count++;
+        start = start->next;
+    }
+    return count;
 }
